@@ -7,6 +7,7 @@
 //
 
 #import "CustomTableViewCell.h"
+#import "CustomCollectionViewCell.h"
 
 @interface CustomTableViewCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -15,6 +16,16 @@
 @end
 
 @implementation CustomTableViewCell
+
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  self.collectionView.delegate = self;
+  self.collectionView.dataSource = self;
+  
+  UINib *nib = [UINib nibWithNibName:@"CustomCollectionViewCell" bundle:nil];
+  [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"CustomCollectionViewCell"];
+}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -25,7 +36,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"customCell" forIndexPath:indexPath];
+  CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
   return cell;
 }
 

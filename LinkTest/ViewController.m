@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CustomTableViewCell.h"
 
 @interface ViewController () <UITableViewDataSource>
 
@@ -16,8 +17,14 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
+{
   [super viewDidLoad];
+  
+  UINib *nib = [UINib nibWithNibName:@"CustomTableViewCell" bundle:nil];
+  [self.tableView registerNib:nib forCellReuseIdentifier:@"CustomTableViewCell"];
   self.tableView.tableFooterView = [UIView new];
 }
 
@@ -30,7 +37,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"customCell" forIndexPath:indexPath];
+  CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomTableViewCell" forIndexPath:indexPath];
   return cell;
 }
 
